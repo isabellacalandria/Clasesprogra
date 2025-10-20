@@ -1,17 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { TextInput } from 'react-native-web';
 
-function Register(props) {
+
+class Register extends Component{
+    constructor(props) {
+        super(props)
+        this.state={
+            email:"",
+            user: "",
+            password:"",
+
+        }
+    }
+render(){
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Register</Text>
-            <Pressable style={styles.boton} onPress={() => props.navigation.navigate("Login")}> 
+            <TextInput style={styles.input}
+                placeholder="Email"
+                keyboardType="email-address"
+                onChangeText= {text => this.setState({email: text})}
+                value={this.state.email}
+            />
+            <TextInput style={styles.input}
+                placeholder="Usuario"
+                onChangeText= {text => this.setState({user: text})}
+                value={this.state.user}
+            />
+            <TextInput style={styles.input}
+                placeholder="Password"
+                keyboardType= "default"
+                secureTextEntry = {true}
+                onChangeText= {text => this.setState({password: text})}
+                value={this.state.password}
+            />
+            <Pressable onPress={() => this.onSubmit()}> 
+                <Text>Registrate</Text>
+            </Pressable>
+
+
+            <Pressable style={styles.boton} onPress={() => this.props.navigation.navigate("Login")}> 
                 <Text style={styles.botonTexto}>Ya tengo una cuenta</Text> 
             </Pressable>
         </View>
        
-    )
-}
+    )}}
+
 
 const styles =StyleSheet.create({
     container: {
@@ -38,4 +73,5 @@ const styles =StyleSheet.create({
         fontSize: 16,
     },
 })
+
 export default Register;

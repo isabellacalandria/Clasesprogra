@@ -1,19 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { TextInput } from 'react-native-web';
 
-function Login(props) {
+class Login extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            email:"",
+            user: "",
+            password:"",
+
+        }
+    }
+render(){
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Login</Text>
-            <Pressable style={styles.boton} onPress={() => props.navigation.navigate("Register")}> 
+            <TextInput style={styles.input}
+                placeholder="Email"
+                keyboardType="email-address"
+                onChangeText= {text => this.setState({email: text})}
+                value={this.state.email}
+            />
+            <TextInput style={styles.input}
+                placeholder="Usuario"
+                onChangeText= {text => this.setState({user: text})}
+                value={this.state.user}
+            />
+            <TextInput style={styles.input}
+                placeholder="Password"
+                keyboardType= "default"
+                secureTextEntry = {true}
+                onChangeText= {text => this.setState({password: text})}
+                value={this.state.password}
+            />
+            <Pressable onPress={() => this.onSubmit()}> 
+                <Text>Login</Text>
+            </Pressable>
+
+
+            <Pressable style={styles.boton} onPress={() => this.props.navigation.navigate("Register")}> 
                 <Text style={styles.botonTexto}>Ir al registro</Text> 
             </Pressable>
-            <Pressable style={styles.botondos} onPress={() => props.navigation.navigate('HomeMenu')}> 
+            <Pressable style={styles.botondos} onPress={() => this.props.navigation.navigate('HomeMenu')}> 
                 <Text style={styles.botondosTexto}>Entrar a la app</Text> 
             </Pressable>
         </View>
     )
-}
+}}
 
 const styles =StyleSheet.create({
     container: {
